@@ -95,6 +95,7 @@ public class ToDoList {
 		Calendar c1 = Calendar.getInstance();
 		String createdate = format.format(c1.getTime());
 		
+		scan.nextLine();
 		System.out.print("Enter the Description: ");
 		String description = scan.nextLine();
 		
@@ -103,9 +104,9 @@ public class ToDoList {
 
 	public static void viewToDoList() throws Exception{
 		System.out.println(" ");
-		for (int i = 0; i < v.size(); i++) {
-			if (v.isEmpty()) System.out.println("No To Do List Yet!");
-			else {
+		if (v.isEmpty()) System.out.println("No To Do List Yet!");
+		else {
+			for (int i = 0; i < v.size(); i++) {
 				System.out.println("---------- " + (i + 1) + " ----------");
 				System.out.println("Create Date: " + v.get(i).createdate);
 				System.out.println("Due Date: " + v.get(i).duedate);
@@ -121,8 +122,17 @@ public class ToDoList {
 		System.out.print("\nEnter To Do List Number you want to delete: ");
 		Scanner scan = new Scanner(System.in);
 		int n = scan.nextInt();
-		v.remove(n - 1);
-		System.out.println("Complete!");
+		
+		System.out.print("Want to delete " + n + "? (y/n): ");
+		String ch = scan.next();
+		
+		if (ch.equals("y")) {
+			v.remove(n - 1);
+			System.out.println("Complete!");
+		} else {
+			System.out.println("Not deleted!");
+		}
+		
 	}
 	
 	public static void updateToDoList() throws Exception{
@@ -138,7 +148,8 @@ public class ToDoList {
 		SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
 		Calendar c1 = Calendar.getInstance();
 		String createdate = format.format(c1.getTime());
-		
+
+		scan.nextLine();
 		System.out.print("Enter updated Description: ");
 		String description = scan.nextLine();
 		
