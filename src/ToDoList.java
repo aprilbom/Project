@@ -76,7 +76,7 @@ public class ToDoList {
 			else if (n == 3) updateToDoList();
 			else if (n == 4) deleteToDoList();
 			else if (n == 5) {
-				break;
+				return;
 			}
 			saveFile();
 			System.out.println("\n<To Do List Menu>");
@@ -118,45 +118,50 @@ public class ToDoList {
 	
 	// 수정해야함
 	public static void deleteToDoList() throws Exception{
-		viewToDoList();
-		System.out.print("\nEnter To Do List Number you want to delete: ");
-		Scanner scan = new Scanner(System.in);
-		int n = scan.nextInt();
-		
-		System.out.print("Want to delete " + n + "? (y/n): ");
-		String ch = scan.next();
-		
-		if (ch.equals("y")) {
-			v.remove(n - 1);
-			System.out.println("Complete!");
-		} else {
-			System.out.println("Not deleted!");
+		if (v.isEmpty()) viewToDoList();
+		else {
+			viewToDoList();
+			System.out.print("\nEnter To Do List Number you want to delete: ");
+			Scanner scan = new Scanner(System.in);
+			int n = scan.nextInt();
+			
+			System.out.print("Want to delete " + n + "? (y/n): ");
+			String ch = scan.next();
+			
+			if (ch.equals("y")) {
+				v.remove(n - 1);
+				System.out.println("Complete!");
+			} else {
+				System.out.println("Not deleted!");
+			}
 		}
-		
 	}
 	
 	public static void updateToDoList() throws Exception{
-		viewToDoList();
-		System.out.print("\nEnter To Do List Number you want to update: ");
-		Scanner scan = new Scanner(System.in);
-		int n = scan.nextInt();
+		if (v.isEmpty()) viewToDoList();
+		else {
+			viewToDoList();
+			System.out.print("\nEnter To Do List Number you want to update: ");
+			Scanner scan = new Scanner(System.in);
+			int n = scan.nextInt();
 		
-		System.out.print("Enter updated Duedate(YYMMDD): ");
-		String duedate = scan.next();
+			System.out.print("Enter updated Duedate(YYMMDD): ");
+			String duedate = scan.next();
 		
-		// 현재 날짜 받아오기
-		SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
-		Calendar c1 = Calendar.getInstance();
-		String createdate = format.format(c1.getTime());
+			// 현재 날짜 받아오기
+			SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
+			Calendar c1 = Calendar.getInstance();
+			String createdate = format.format(c1.getTime());
 
-		scan.nextLine();
-		System.out.print("Enter updated Description: ");
-		String description = scan.nextLine();
+			scan.nextLine();
+			System.out.print("Enter updated Description: ");
+			String description = scan.nextLine();
 		
-		v.get(n - 1).createdate = createdate;
-		v.get(n - 1).duedate = duedate;
-		v.get(n - 1).description = description;
+			v.get(n - 1).createdate = createdate;
+			v.get(n - 1).duedate = duedate;
+			v.get(n - 1).description = description;
 		
-		System.out.println("Complete!");
+			System.out.println("Complete!");
+		}
 	}
 }

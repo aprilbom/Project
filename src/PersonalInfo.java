@@ -14,8 +14,11 @@ public class PersonalInfo {
 
 	public static void main(String[] args) throws Exception{
 		
-		// 클래스 객체 생성
+		// 각자의 클래스 객체 생성
+		Contacts cont = new Contacts();
 		ToDoList todo = new ToDoList();
+		Appointments app = new Appointments();
+		Notes note = new Notes();
 		
 		System.out.println("Hello!");
 		printMainMenu();
@@ -24,11 +27,13 @@ public class PersonalInfo {
 		int n = scan.nextInt();
 		
 		while (n != 5) {
-			if (n == 1) ;
+			if (n == 1) cont.contactmenu();
 			else if (n == 2) todo.toDoListMenu();
 			else if (n == 3) ;
 			else if (n == 4) ;
+			else if (n == 5) return;
 			printMainMenu();
+			n = scan.nextInt();
 		}
 		scan.close();
 	}
