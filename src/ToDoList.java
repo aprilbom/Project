@@ -96,7 +96,7 @@ public class ToDoList {
 		String createdate = format.format(c1.getTime());
 		
 		System.out.print("Enter the Description: ");
-		String description = scan.next();
+		String description = scan.nextLine();
 		
 		v.add(new todo(createdate, duedate, description));
 	}
@@ -104,11 +104,14 @@ public class ToDoList {
 	public static void viewToDoList() throws Exception{
 		System.out.println(" ");
 		for (int i = 0; i < v.size(); i++) {
-			System.out.println("---------- " + (i + 1) + " ----------");
-			System.out.println("Create Date: " + v.get(i).createdate);
-			System.out.println("Due Date: " + v.get(i).duedate);
-			System.out.println("Description: " + v.get(i).description);
-			System.out.println("------------------------");
+			if (v.isEmpty()) System.out.println("No To Do List Yet!");
+			else {
+				System.out.println("---------- " + (i + 1) + " ----------");
+				System.out.println("Create Date: " + v.get(i).createdate);
+				System.out.println("Due Date: " + v.get(i).duedate);
+				System.out.println("Description: " + v.get(i).description);
+				System.out.println("------------------------");
+			}
 		}
 	}
 	
@@ -137,11 +140,11 @@ public class ToDoList {
 		String createdate = format.format(c1.getTime());
 		
 		System.out.print("Enter updated Description: ");
-		String description = scan.next();
+		String description = scan.nextLine();
 		
-		v.get(n).createdate = createdate;
-		v.get(n).duedate = duedate;
-		v.get(n).description = description;
+		v.get(n - 1).createdate = createdate;
+		v.get(n - 1).duedate = duedate;
+		v.get(n - 1).description = description;
 		
 		System.out.println("Complete!");
 	}
