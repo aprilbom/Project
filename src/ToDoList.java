@@ -49,10 +49,6 @@ public class ToDoList {
 	}
 	
 	public static void toDoListMenu() throws Exception {
-		// 프로그램 실행될때마다 파일 있는지 확인
-		// 확인해서 파일 없으면 새로 만들어서 빈 백터 넣기
-		// 확인해서 파일 있으면 파일 내용 새 백터에 읽어오기 
-		
 		File f = new File("To Do List.dat");
 		if (!f.exists()) { // 파일 없으면
 			f.createNewFile();
@@ -89,8 +85,7 @@ public class ToDoList {
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Enter the Duedate(YYMMDD): ");
 		String duedate = scan.next();
-		
-		// 현재 날짜 받아오기
+
 		SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
 		Calendar c1 = Calendar.getInstance();
 		String createdate = format.format(c1.getTime());
@@ -116,7 +111,6 @@ public class ToDoList {
 		}
 	}
 	
-	// 수정해야함
 	public static void deleteToDoList() throws Exception{
 		if (v.isEmpty()) viewToDoList();
 		else {
@@ -147,8 +141,7 @@ public class ToDoList {
 		
 			System.out.print("Enter updated Duedate(YYMMDD): ");
 			String duedate = scan.next();
-		
-			// 현재 날짜 받아오기
+
 			SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
 			Calendar c1 = Calendar.getInstance();
 			String createdate = format.format(c1.getTime());
