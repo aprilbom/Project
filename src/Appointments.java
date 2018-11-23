@@ -8,13 +8,13 @@ public class Appointments {
 	static class appointment implements Serializable {
 
 		private String createdate;
-		private String address;
-		private String person;
+		private String where;
+		private String with_who;
 		
-		private appointment(String createdate, String address, String person) {
+		private appointment(String createdate, String where, String with_who) {
 			this.createdate = createdate;
-			this.address = address;
-			this.person = person;
+			this.where = where;
+			this.with_who = with_who;
 		}
 
 		public String getCreatedate() {
@@ -25,35 +25,32 @@ public class Appointments {
 			this.createdate = createdate;
 		}
 
-		public String getAddress() {
-			return address;
+		public String getWhere() {
+			return where;
 		}
 
-		public void setAddress(String address) {
-			this.address = address;
+		public void setWhere(String where) {
+			this.where = where;
 		}
 
-		public String getPerson() {
-			return person;
+		public String getWithWho() {
+			return with_who;
 		}
 
-		public void setPerson(String person) {
-			this.person = person;
+		public void setWithWho(String with_who) {
+			this.with_who = with_who;
 		}
 	}
 	
 	private static void saveFile() throws Exception {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("To Do List.dat"));
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Appointment List.dat"));
 		oos.writeObject(v);
 		oos.close();
 	}
 	
 	public static void appointmentMenu() throws Exception {
-		// 프로그램 실행될때마다 파일 있는지 확인
-		// 확인해서 파일 없으면 새로 만들어서 빈 백터 넣기
-		// 확인해서 파일 있으면 파일 내용 새 백터에 읽어오기 
-		
-		File f = new File("To Do List.dat");
+	
+		File f = new File("Appointment List.dat");
 		if (!f.exists()) { // 파일 없으면
 			f.createNewFile();
 		} else { // 파일 있으면
@@ -92,12 +89,12 @@ public class Appointments {
 		String createdate = scan.next();
 		
 		System.out.print("Enter the address: ");
-		String address = scan.next();
+		String where = scan.next();
 		
 		System.out.print("Enter the person: ");
-		String person = scan.next();
+		String with_who = scan.next();
 		
-		v.add(new appointment(createdate, address, person));
+		v.add(new appointment(createdate, where, with_who));
 		
 	}
 	
@@ -107,13 +104,13 @@ public class Appointments {
 		for (int i = 0; i < v.size(); i++) {
 			System.out.println("---------- " + (i + 1) + " ----------");
 			System.out.println("Create Date: " + v.get(i).createdate);
-			System.out.println("Address: " + v.get(i).address);
-			System.out.println("Person: " + v.get(i).person);
+			System.out.println("Address: " + v.get(i).where);
+			System.out.println("Person: " + v.get(i).with_who);
 			System.out.println("------------------------");
 		}
 	}
 	
-	//updadte 수정
+
 	public static void updateAppointment() throws Exception{
 		viewAppointment();
 		System.out.print("\nEnter To Do List Number you want to update: ");
@@ -124,26 +121,37 @@ public class Appointments {
 		String createdate = scan.next();
 		
 		System.out.print("Enter updated Address: ");
-		String address = scan.next();
+		String where = scan.next();
 		
 		System.out.print("Enter updated Person: ");
-		String person = scan.next();
+		String with_who = scan.next();
 		
 		v.get(n).createdate = createdate;
-		v.get(n).address = address;
-		v.get(n).person = person;
+		v.get(n).where = where;
+		v.get(n).with_who = with_who;
 		
 		System.out.println("Complete!");
 
 		
 	}
 	public static void deleteAppointment() throws Exception{
-		viewAppointment();
-		System.out.print("\nEnter Appointment Number you want to delete: ");
-		Scanner scan = new Scanner(System.in);
-		int n = scan.nextInt();
-		v.remove(n - 1);
-		System.out.println("Complete!");
+		if (v.isEmpty()) viewAppointment();
+		else {
+			viewAppointment();
+			System.out.print("\nEnter Appointment Number you want to delete: ");
+			Scanner scan = new Scanner(System.in);
+			int n = scan.nextInt();
+			
+			System.out.print("Want to delete " + n + "? (y/n): ");
+			String ch = scan.next();
+			
+			if (ch.equals("y")) {
+				v.remove(n - 1);
+				System.out.println("Complete!");
+			} else {
+				System.out.println("Not deleted!");
+			}
+		}
 	}
 
 
