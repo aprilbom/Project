@@ -16,6 +16,7 @@ public class PersonalInfo {
 		
 		// 클래스 객체 생성
 		ToDoList todo = new ToDoList();
+		Notes notes = new Notes();
 		
 		System.out.println("Hello!");
 		printMainMenu();
@@ -27,7 +28,7 @@ public class PersonalInfo {
 			if (n == 1) ;
 			else if (n == 2) todo.toDoListMenu();
 			else if (n == 3) ;
-			else if (n == 4) ;
+			else if (n == 4) notes.notesMenu();
 			printMainMenu();
 		}
 		scan.close();
