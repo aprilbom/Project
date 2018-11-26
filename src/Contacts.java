@@ -1,12 +1,62 @@
+import java.io.File;
+import java.io.*;
 import java.util.*;
 public class Contacts {
-	static Scanner scan=new Scanner(System.in);
-	public static void contactmenu() {
-		PersonalInfo pc = new PersonalInfo();
-		Scanner scan = new Scanner(System.in);
+	static Vector<contact> v=new Vector<contact>();
+	static class contact implements Serializable{
+		private String name;
+		private String phone;
+		private String email;
 		
+		private contact(String name, String phone, String email) {
+			this.name=name;
+			this.phone=phone;
+			this.email=email;
+		}
+		
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name=name;
+		}
+		public String getPhone() {
+			return phone;
+		}
+		public void setPhone(String phone) {
+			this.phone=phone;
+		}
+		public String setEmail() {
+			return email;
+		}
+		public void getEmail(String email) {
+			this.email=email;
+		}
+		
+	}
+	
+	
+	private static void saveFile() throws Exception {
+		ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("Contacts.dat"));
+		oos.writeObject(v);
+		oos.close();
+	}
+	
+	public static void contactMenu() throws Exception {
+		File f=new File("Contacts.dat");
+		if(!f.exists()) {
+			f.createNewFile();
+		}else {
+			ObjectInputStream ois=new ObjectInputStream(new FileInputStream(f));
+			v=(Vector<contact>)ois.readObject();
+			ois.close();
+		}
+		
+		
+		PersonalInfo pc = new PersonalInfo();
 		System.out.println("\n<Contacts Menu>");
 		pc.printDetailMenu();
+		Scanner scan=new Scanner(System.in);
 		int n = scan.nextInt();
 		
 		while (n != 5) {

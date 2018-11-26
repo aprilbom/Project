@@ -27,7 +27,7 @@ public class PersonalInfo {
 		int n = scan.nextInt();
 		
 		while (n != 5) {
-			if (n == 1) cont.contactmenu();
+			if (n == 1) cont.contactMenu();
 			else if (n == 2) todo.toDoListMenu();
 			else if (n == 3) ;
 			else if (n == 4) note.notesMenu();
