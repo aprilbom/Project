@@ -31,7 +31,7 @@ public class Notes {
 		public void setContents(String contents) {
 			this.contents = contents;
 		}
-		
+
 		public String getCreatedate() {
 			return createdate;
 		}
@@ -62,7 +62,7 @@ public class Notes {
 		}
 
 		PersonalInfo pInfo = new PersonalInfo();
-		System.out.println("\n<To Do List Menu>");
+		System.out.println("\n<1. Notes Menu>");
 		pInfo.printDetailMenu();
 
 		Scanner scan = new Scanner(System.in);
@@ -78,11 +78,11 @@ public class Notes {
 				updateNote();
 			else if (n == 4)
 				deleteNote();
-			else if (n == 5) 
+			else if (n == 5)
 				break;
-			
+
 			saveFile();
-			System.out.println("\n<Notes Menu>");
+			System.out.println("\n<2. Notes Menu>");
 			pInfo.printDetailMenu();
 			n = scan.nextInt();
 		}
@@ -121,8 +121,14 @@ public class Notes {
 		System.out.print("\nEnter Notes Number you want to delete: ");
 		Scanner scan = new Scanner(System.in);
 		int n = scan.nextInt();
-		v.remove(n - 1);
-		System.out.println("Complete!");
+		System.out.print("\nWant to delete?(Y/N): ");
+		String reply = scan.next();
+
+		if (reply.equals("Y")) {
+			v.remove(n - 1);
+			System.out.println("Complete!");
+		}else 
+			System.out.println("Canceled!");
 	}
 
 	public static void updateNote() throws Exception {
@@ -142,9 +148,9 @@ public class Notes {
 		System.out.print("Enter updated Contents: ");
 		String contents = scan.next();
 
-		v.get(n).createdate = createdate;
-		v.get(n).title = title;
-		v.get(n).contents = contents;
+		v.get(n - 1).createdate = createdate;
+		v.get(n - 1).title = title;
+		v.get(n - 1).contents = contents;
 
 		System.out.println("Complete!");
 	}
