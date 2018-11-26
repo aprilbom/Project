@@ -49,10 +49,6 @@ public class ToDoList {
 	}
 	
 	public static void toDoListMenu() throws Exception {
-		// 프로그램 실행될때마다 파일 있는지 확인
-		// 확인해서 파일 없으면 새로 만들어서 빈 백터 넣기
-		// 확인해서 파일 있으면 파일 내용 새 백터에 읽어오기 
-		
 		File f = new File("To Do List.dat");
 		if (!f.exists()) { // 파일 없으면
 			f.createNewFile();
@@ -76,7 +72,7 @@ public class ToDoList {
 			else if (n == 3) updateToDoList();
 			else if (n == 4) deleteToDoList();
 			else if (n == 5) {
-				break;
+				return;
 			}
 			saveFile();
 			System.out.println("\n<To Do List Menu>");
@@ -89,60 +85,76 @@ public class ToDoList {
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Enter the Duedate(YYMMDD): ");
 		String duedate = scan.next();
-		
-		// 현재 날짜 받아오기
+
 		SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
 		Calendar c1 = Calendar.getInstance();
 		String createdate = format.format(c1.getTime());
 		
+		scan.nextLine();
 		System.out.print("Enter the Description: ");
-		String description = scan.next();
+		String description = scan.nextLine();
 		
 		v.add(new todo(createdate, duedate, description));
 	}
 
 	public static void viewToDoList() throws Exception{
 		System.out.println(" ");
-		for (int i = 0; i < v.size(); i++) {
-			System.out.println("---------- " + (i + 1) + " ----------");
-			System.out.println("Create Date: " + v.get(i).createdate);
-			System.out.println("Due Date: " + v.get(i).duedate);
-			System.out.println("Description: " + v.get(i).description);
-			System.out.println("------------------------");
+		if (v.isEmpty()) System.out.println("No To Do List Yet!");
+		else {
+			for (int i = 0; i < v.size(); i++) {
+				System.out.println("---------- " + (i + 1) + " ----------");
+				System.out.println("Create Date: " + v.get(i).createdate);
+				System.out.println("Due Date: " + v.get(i).duedate);
+				System.out.println("Description: " + v.get(i).description);
+				System.out.println("------------------------");
+			}
 		}
 	}
 	
-	// 수정해야함
 	public static void deleteToDoList() throws Exception{
-		viewToDoList();
-		System.out.print("\nEnter To Do List Number you want to delete: ");
-		Scanner scan = new Scanner(System.in);
-		int n = scan.nextInt();
-		v.remove(n - 1);
-		System.out.println("Complete!");
+		if (v.isEmpty()) viewToDoList();
+		else {
+			viewToDoList();
+			System.out.print("\nEnter To Do List Number you want to delete: ");
+			Scanner scan = new Scanner(System.in);
+			int n = scan.nextInt();
+			
+			System.out.print("Want to delete " + n + "? (y/n): ");
+			String ch = scan.next();
+			
+			if (ch.equals("y")) {
+				v.remove(n - 1);
+				System.out.println("Complete!");
+			} else {
+				System.out.println("Not deleted!");
+			}
+		}
 	}
 	
 	public static void updateToDoList() throws Exception{
-		viewToDoList();
-		System.out.print("\nEnter To Do List Number you want to update: ");
-		Scanner scan = new Scanner(System.in);
-		int n = scan.nextInt();
+		if (v.isEmpty()) viewToDoList();
+		else {
+			viewToDoList();
+			System.out.print("\nEnter To Do List Number you want to update: ");
+			Scanner scan = new Scanner(System.in);
+			int n = scan.nextInt();
 		
-		System.out.print("Enter updated Duedate(YYMMDD): ");
-		String duedate = scan.next();
+			System.out.print("Enter updated Duedate(YYMMDD): ");
+			String duedate = scan.next();
+
+			SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
+			Calendar c1 = Calendar.getInstance();
+			String createdate = format.format(c1.getTime());
+
+			scan.nextLine();
+			System.out.print("Enter updated Description: ");
+			String description = scan.nextLine();
 		
-		// 현재 날짜 받아오기
-		SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
-		Calendar c1 = Calendar.getInstance();
-		String createdate = format.format(c1.getTime());
+			v.get(n - 1).createdate = createdate;
+			v.get(n - 1).duedate = duedate;
+			v.get(n - 1).description = description;
 		
-		System.out.print("Enter updated Description: ");
-		String description = scan.next();
-		
-		v.get(n).createdate = createdate;
-		v.get(n).duedate = duedate;
-		v.get(n).description = description;
-		
-		System.out.println("Complete!");
+			System.out.println("Complete!");
+		}
 	}
 }
