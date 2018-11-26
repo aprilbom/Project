@@ -29,7 +29,10 @@ public class PersonalInfo {
 			else if (n == 2) todo.toDoListMenu();
 			else if (n == 3) ;
 			else if (n == 4) notes.notesMenu();
-			//printMainMenu();
+			else if (n == 5) return;
+
+			printMainMenu();
+			n = scan.nextInt();
 		}
 		scan.close();
 	}

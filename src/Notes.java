@@ -79,7 +79,7 @@ public class Notes {
 			else if (n == 4)
 				deleteNote();
 			else if (n == 5)
-				break;
+				return;
 
 			saveFile();
 			System.out.println("\n<2. Notes Menu>");
@@ -106,8 +106,10 @@ public class Notes {
 
 	public static void viewNote() throws Exception {
 		System.out.println(" ");
+		if (v.isEmpty())
+			System.out.println("No Notes List Yet!");
 		for (int i = 0; i < v.size(); i++) {
-			System.out.println("---------- " + (i + 1) + " ----------");
+			System.out.println("---------- " + (i + 1) + " -----------");
 			System.out.println("Title: " + v.get(i).title);
 			System.out.println("Contents: " + v.get(i).contents);
 			System.out.println("Create Date: " + v.get(i).createdate);
@@ -117,18 +119,24 @@ public class Notes {
 
 	// 수정해야함
 	public static void deleteNote() throws Exception {
-		viewNote();
-		System.out.print("\nEnter Notes Number you want to delete: ");
-		Scanner scan = new Scanner(System.in);
-		int n = scan.nextInt();
-		System.out.print("\nWant to delete?(Y/N): ");
-		String reply = scan.next();
+		if (v.isEmpty())
+			viewNote();
+		else {
+			viewNote();
+			System.out.print("\nEnter Notes Number you want to delete: ");
+			Scanner scan = new Scanner(System.in);
+			int n = scan.nextInt();
+			
+			System.out.print("Want to delete " + n + "? (y/n): ");
+			String ch = scan.next();
+			
+			if (ch.equals("y")) {
+				v.remove(n - 1);
+				System.out.println("Complete!");
+			} else 
+				System.out.println("Not deleted!");
 
-		if (reply.equals("Y")) {
-			v.remove(n - 1);
-			System.out.println("Complete!");
-		}else 
-			System.out.println("Canceled!");
+		}
 	}
 
 	public static void updateNote() throws Exception {
