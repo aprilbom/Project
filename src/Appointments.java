@@ -60,7 +60,7 @@ public class Appointments {
 		}
 		
 		PersonalInfo pInfo = new PersonalInfo();
-		System.out.println("\n<Appointment Menu>");
+		System.out.println("\n< Appointment Menu >");
 		pInfo.printDetailMenu();
 		
 		Scanner scan = new Scanner(System.in);
