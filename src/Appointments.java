@@ -88,10 +88,10 @@ public class Appointments {
 		System.out.print("Enter the date(YYMMDD): ");
 		String createdate = scan.next();
 		
-		System.out.print("Enter the address: ");
+		System.out.print("Enter the address where you meet: ");
 		String where = scan.next();
 		
-		System.out.print("Enter the person: ");
+		System.out.print("Enter the person who you meet: ");
 		String with_who = scan.next();
 		
 		v.add(new appointment(createdate, where, with_who));
