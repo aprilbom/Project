@@ -72,7 +72,6 @@ public class Contacts {
 		}
 	}
 	public static void createContact() throws Exception {
-		//create contact
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Enter the name: ");
 		String name=scan.nextLine();
@@ -85,12 +84,29 @@ public class Contacts {
 		
 		v.add(new contact(name,phone,email));
 	}
+	
+
+	
+	
 	public static void viewContact() {
-		//view contact
 		System.out.println(" ");
 		if (v.isEmpty())
 			System.out.println("No Contact List Yet!");
 		else {
+			for(int i=0;i<v.size();i++) {
+				for(int j=i;j<v.size();j++)
+					if((v.get(i).name).compareTo(v.get(j).name)>0) {
+						String name_temp=v.get(i).name;
+						String phone_temp=v.get(i).phone;
+						String email_temp=v.get(i).email;
+						v.get(i).name=v.get(j).name;
+						v.get(i).phone=v.get(j).phone;
+						v.get(i).email=v.get(j).email;
+						v.get(j).name=name_temp;
+						v.get(j).phone=phone_temp;
+						v.get(j).email=email_temp;
+				}	
+			}
 			for(int i=0;i<v.size();i++) {
 				System.out.println("---------- " + (i + 1) + " ----------");
 				System.out.println("name: " + v.get(i).name);
@@ -102,12 +118,16 @@ public class Contacts {
 	}
 
 	public static void updateContact() {
-		//update contact
+		int i;
 		viewContact();
 		System.out.print("\nEnter Contact name you want to update: ");
 		Scanner scan = new Scanner(System.in);
-		int n = scan.nextInt();
+		String n = scan.next();
 
+		for(i=0;i<v.size();i++)
+			if(n.equals(v.get(i).name))
+				break;
+		
 		System.out.print("Enter updated name: ");
 		String name = scan.next();
 
@@ -117,27 +137,31 @@ public class Contacts {
 		System.out.print("Enter updated email: ");
 		String email = scan.next();
 
-		v.get(n - 1).name = name;
-		v.get(n - 1).phone = phone;
-		v.get(n - 1).email = email;
+		v.get(i).name = name;
+		v.get(i).phone = phone;
+		v.get(i).email = email;
 
 		System.out.println("Complete!");
 	}
 	public static void deleteContact() {
-		//delete contact
+		int i;
 		if (v.isEmpty())
 			viewContact();
 		else {
 			viewContact();
 			System.out.print("\nEnter Contact name you want to delete: ");
 			Scanner scan = new Scanner(System.in);
-			int n = scan.nextInt();
+			String n = scan.next();
+			
+			for(i=0;i<v.size();i++)
+				if(n.equals(v.get(i).name))
+					break;
 			
 			System.out.print("Want to delete " + n + "? (y/n): ");
 			String ch = scan.next();
 			
 			if (ch.equals("y")) {
-				v.remove(n - 1);
+				v.remove(i);
 				System.out.println("Complete!");
 			} else 
 				System.out.println("Not deleted!");
