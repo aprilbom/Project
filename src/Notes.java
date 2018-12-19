@@ -41,10 +41,21 @@ public class Notes {
 		}
 	}
 
-	private static void saveFile() throws Exception {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Notes.dat"));
-		oos.writeObject(v);
-		oos.close();
+	public static boolean saveFile() {
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream("Notes.dat"));
+			oos.writeObject(v);
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+
 	}
 
 	public static void notesMenu() throws Exception {
@@ -81,10 +92,12 @@ public class Notes {
 			else if (n == 5)
 				return;
 
-			saveFile();
-			System.out.println("\n<2. Notes Menu>");
-			pInfo.printDetailMenu();
-			n = scan.nextInt();
+			if (saveFile()) {
+				System.out.println("\n<2. Notes Menu>");
+				pInfo.printDetailMenu();
+				n = scan.nextInt();
+			}
+
 		}
 	}
 
@@ -117,7 +130,6 @@ public class Notes {
 		}
 	}
 
-	// 수정해야함
 	public static void deleteNote() throws Exception {
 		if (v.isEmpty())
 			viewNote();
@@ -126,16 +138,16 @@ public class Notes {
 			System.out.print("\nEnter Notes Number you want to delete: ");
 			Scanner scan = new Scanner(System.in);
 			int n = scan.nextInt();
-			
+
 			System.out.print("Want to delete " + n + "? (y/n): ");
 			String ch = scan.next();
-			
+
 			if (ch.equals("y")) {
 				v.remove(n - 1);
 				System.out.println("Complete!");
-			} else 
-				System.out.println("Not deleted!");
 
+			} else
+				System.out.println("Not deleted!");
 		}
 	}
 
@@ -149,17 +161,21 @@ public class Notes {
 		String title = scan.next();
 
 		// 현재 날짜 받아오기
-		SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
-		Calendar c1 = Calendar.getInstance();
-		String createdate = format.format(c1.getTime());
-
 		System.out.print("Enter updated Contents: ");
 		String contents = scan.next();
 
-		v.get(n - 1).createdate = createdate;
+		v.get(n - 1).createdate = getDate();
 		v.get(n - 1).title = title;
 		v.get(n - 1).contents = contents;
-
 		System.out.println("Complete!");
+
 	}
+
+	public static String getDate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyMMdd");
+		Calendar c1 = Calendar.getInstance();
+		String createdate = format.format(c1.getTime());
+		return createdate;
+	}
+
 }
