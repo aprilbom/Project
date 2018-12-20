@@ -4,6 +4,7 @@ import java.text.*;
 
 public class Appointments {
 	static Vector<appointment> v = new Vector<appointment>();
+	static File f = new File("Appointment List.dat");
 	
 	static class appointment implements Serializable {
 
@@ -48,10 +49,16 @@ public class Appointments {
 		oos.close();
 	}
 	
-	public static void appointmentMenu() throws Exception {
+	//파일 없으면 트루 반환
+	public static boolean fileNotExist() {
+		if(f.exists())
+			return true;
+		else 
+			return false;
+	}
 	
-		File f = new File("Appointment List.dat");
-		if (!f.exists()) { // 파일 없으면
+	public static void appointmentMenu() throws Exception {
+		if (!fileNotExist()) { // 파일 없으면
 			f.createNewFile();
 		} else { // 파일 있으면
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
@@ -81,7 +88,7 @@ public class Appointments {
 			n = scan.nextInt();
 		}
 	}
-
+	
 
 	public static void createAppointment() throws Exception{
 		Scanner scan = new Scanner(System.in);
@@ -97,7 +104,7 @@ public class Appointments {
 		v.add(new appointment(createdate, where, with_who));
 		
 	}
-	
+
 	public static void viewAppointment() throws Exception{
 		
 		System.out.println(" ");
@@ -135,7 +142,7 @@ public class Appointments {
 		
 	}
 	public static void deleteAppointment() throws Exception{
-		if (v.isEmpty()) viewAppointment();
+		if (vEmpty()) viewAppointment();
 		else {
 			viewAppointment();
 			System.out.print("\nEnter Appointment Number you want to delete: ");
@@ -153,6 +160,12 @@ public class Appointments {
 			}
 		}
 	}
-
+	
+	public static boolean vEmpty() {	
+		if (v.isEmpty())
+			return true ;
+		else 
+			return false;
+	}
 
 }
