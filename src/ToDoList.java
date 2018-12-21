@@ -42,10 +42,11 @@ public class ToDoList {
 		}
 	}
 	
-	private static void saveFile() throws Exception {
+	private static Object saveFile() throws Exception {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("To Do List.dat"));
 		oos.writeObject(v);
 		oos.close();
+		return v;
 	}
 	
 	public static void toDoListMenu() throws Exception {
@@ -97,9 +98,12 @@ public class ToDoList {
 		v.add(new todo(createdate, duedate, description));
 	}
 
-	public static void viewToDoList() throws Exception{
+	public static boolean viewToDoList() throws Exception{
 		System.out.println(" ");
-		if (v.isEmpty()) System.out.println("No To Do List Yet!");
+		if (v.isEmpty()) {
+			System.out.println("No To Do List Yet!");
+			return true;
+		}
 		else {
 			for (int i = 0; i < v.size(); i++) {
 				System.out.println("---------- " + (i + 1) + " ----------");
@@ -108,6 +112,7 @@ public class ToDoList {
 				System.out.println("Description: " + v.get(i).description);
 				System.out.println("------------------------");
 			}
+			return true;
 		}
 	}
 	
