@@ -13,8 +13,7 @@ public class PersonalInfo {
 	}
 
 	public static void main(String[] args) throws Exception{
-		
-		// 각자의 클래스 객체 생성
+
 		Contacts cont = new Contacts();
 		ToDoList todo = new ToDoList();
 		Appointments app = new Appointments();

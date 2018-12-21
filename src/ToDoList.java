@@ -51,9 +51,9 @@ public class ToDoList {
 	
 	public static void toDoListMenu() throws Exception {
 		File f = new File("To Do List.dat");
-		if (!f.exists()) { // ÆÄÀÏ ¾øÀ¸¸é
+		if (!f.exists()) { // Ã†Ã„Ã€Ã Â¾Ã¸Ã€Â¸Â¸Ã©
 			f.createNewFile();
-		} else { // ÆÄÀÏ ÀÖÀ¸¸é
+		} else { // Ã†Ã„Ã€Ã Ã€Ã–Ã€Â¸Â¸Ã©
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
 			v = (Vector<todo>)ois.readObject();
 			ois.close();
