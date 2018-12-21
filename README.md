@@ -10,7 +10,3 @@
 1614223 김진희
 
 1613704 유민선
-
-
-
-** test class: src/TestClass
