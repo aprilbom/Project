@@ -42,7 +42,7 @@ public class ToDoList {
 		}
 	}
 	
-	private static Object saveFile() throws Exception {
+	public static Vector<todo> saveFile() throws Exception {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("To Do List.dat"));
 		oos.writeObject(v);
 		oos.close();
@@ -51,9 +51,9 @@ public class ToDoList {
 	
 	public static void toDoListMenu() throws Exception {
 		File f = new File("To Do List.dat");
-		if (!f.exists()) { // ÆÄÀÏ ¾øÀ¸¸é
+		if (!f.exists()) {
 			f.createNewFile();
-		} else { // ÆÄÀÏ ÀÖÀ¸¸é
+		} else {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
 			v = (Vector<todo>)ois.readObject();
 			ois.close();

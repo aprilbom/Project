@@ -1,33 +1,23 @@
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.util.Vector;
-
 import org.junit.jupiter.api.*;
 
-import ToDoList.todo;
+import java.io.File;
+import java.text.*;
 
 class ToDoTest {
-	@BeforeAll
-	static void initAll() {
+	
+	
+	@Test
+	static void viewtest() throws Exception{
 		ToDoList todotest = new ToDoList();
+		boolean check = todotest.viewToDoList();
+		assertTrue(check);
 	}
 	
 	@Test
-	static void viewtest() {
-		assertTrue(todotest.viewToDoList());
-	}
-	
-	@Test
-	static void test() {
-		static Vector<todo> v = new Vector<todo>();
-		static Vector<todo> v2 = new Vector<todo>();
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-		v = (Vector<todo>)ois.readObject();
-		ois.close();
-		v2 = todotest.saveFile();
-		assertEquals(v, v2);
+	static void checkreturn() throws Exception {
+		ToDoList todotest = new ToDoList();
+		assertNotNull(todotest.saveFile());
 	}
 	
 	
